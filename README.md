@@ -170,6 +170,18 @@ Make sure you add the scheme to your [PROJECTNAME]-Info.plist (located as one of
 &lt;/array&gt;
 </pre>
 
+You also need to add a method to your ```AppDelgate.m```: 
+<pre>
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+  // attempt to extract a token from the url
+  return [FBAppCall handleOpenURL:url
+                    sourceApplication:sourceApplication
+                    fallbackHandler:^(FBAppCall *call) {
+                       NSLog(@"In fallback handler");
+                    }
+          ];
+}
+</pre>
 ## Automatic Installation
 This plugin is based on [plugman](https://git-wip-us.apache.org/repos/asf?p=cordova-plugman.git;a=summary). To install it to your app, simply execute plugman as follows; It does not currently work with plugman at all. WORK IN PROGRESS 
 
